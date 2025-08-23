@@ -1,5 +1,5 @@
 from pychord.note import Note
-
+from pychord.interval import OCTAVE
 
 class Scale:
     """
@@ -43,6 +43,9 @@ class Scale:
         if not isinstance(other, int):
             return NotImplemented
         return self.shifted(-other)
+
+    def __getitem__(self, index: int) -> Note:
+        return self.notes[index % len(self.notes)] + OCTAVE * (index // len(self.notes))
 
     def shifted(self, steps: int) -> "Scale":
         """
