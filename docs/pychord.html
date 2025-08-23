@@ -77,6 +77,9 @@
                         <li>
                                 <a class="function" href="#Interval.name">name</a>
                         </li>
+                        <li>
+                                <a class="function" href="#Interval.decompound">decompound</a>
+                        </li>
                 </ul>
 
             </li>
@@ -103,6 +106,48 @@
                         </li>
                         <li>
                                 <a class="function" href="#Note.transposed">transposed</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#Note.following">following</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#Note.preceding">preceding</a>
+                        </li>
+                </ul>
+
+            </li>
+            <li>
+                    <a class="class" href="#Mode">Mode</a>
+                            <ul class="memberlist">
+                        <li>
+                                <a class="function" href="#Mode.__init__">Mode</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Mode.intervals">intervals</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#Mode.shifted">shifted</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#Mode.to_scale">to_scale</a>
+                        </li>
+                </ul>
+
+            </li>
+            <li>
+                    <a class="class" href="#Scale">Scale</a>
+                            <ul class="memberlist">
+                        <li>
+                                <a class="function" href="#Scale.__init__">Scale</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Scale.notes">notes</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#Scale.shifted">shifted</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#Scale.tonic">tonic</a>
                         </li>
                 </ul>
 
@@ -164,6 +209,27 @@
             <li>
                     <a class="variable" href="#OCTAVE">OCTAVE</a>
             </li>
+            <li>
+                    <a class="variable" href="#IONIAN">IONIAN</a>
+            </li>
+            <li>
+                    <a class="variable" href="#PHRYGIAN">PHRYGIAN</a>
+            </li>
+            <li>
+                    <a class="variable" href="#DORIAN">DORIAN</a>
+            </li>
+            <li>
+                    <a class="variable" href="#LYDIAN">LYDIAN</a>
+            </li>
+            <li>
+                    <a class="variable" href="#MIXOLYDIAN">MIXOLYDIAN</a>
+            </li>
+            <li>
+                    <a class="variable" href="#AEOLIAN">AEOLIAN</a>
+            </li>
+            <li>
+                    <a class="variable" href="#LOCRIAN">LOCRIAN</a>
+            </li>
     </ul>
 
 
@@ -187,37 +253,47 @@ pychord    </h1>
 
                         <div class="pdoc-code codehilite"><pre><span></span><span id="L-1"><a href="#L-1"><span class="linenos"> 1</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">pychord.const</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
 </span><span id="L-2"><a href="#L-2"><span class="linenos"> 2</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">pychord.interval</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
-</span><span id="L-3"><a href="#L-3"><span class="linenos"> 3</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">pychord.note</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
-</span><span id="L-4"><a href="#L-4"><span class="linenos"> 4</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">pychord.ratio</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
-</span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">pychord.tone</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
-</span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a>
-</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
-</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a>    <span class="c1"># Classes</span>
-</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a>    <span class="s2">&quot;Tone&quot;</span><span class="p">,</span>
-</span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a>    <span class="s2">&quot;Ratio&quot;</span><span class="p">,</span>
-</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a>    <span class="s2">&quot;Interval&quot;</span><span class="p">,</span>
-</span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a>    <span class="s2">&quot;Note&quot;</span><span class="p">,</span>
-</span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a>    <span class="c1"># Constants</span>
-</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a>    <span class="s2">&quot;OCTAVE_RATIO&quot;</span><span class="p">,</span>
-</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a>    <span class="s2">&quot;SEMITONE_RATIO&quot;</span><span class="p">,</span>
-</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a>    <span class="s2">&quot;C0_FREQUENCY&quot;</span><span class="p">,</span>
-</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a>    <span class="s2">&quot;SEMITONE&quot;</span><span class="p">,</span>
-</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a>    <span class="s2">&quot;MINOR_SECOND&quot;</span><span class="p">,</span>
-</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a>    <span class="s2">&quot;WHOLETONE&quot;</span><span class="p">,</span>
-</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a>    <span class="s2">&quot;MAJOR_SECOND&quot;</span><span class="p">,</span>
-</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a>    <span class="s2">&quot;MINOR_THIRD&quot;</span><span class="p">,</span>
-</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a>    <span class="s2">&quot;MAJOR_THIRD&quot;</span><span class="p">,</span>
-</span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a>    <span class="s2">&quot;PERFECT_FOURTH&quot;</span><span class="p">,</span>
-</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a>    <span class="s2">&quot;AUGMENTED_FOURTH&quot;</span><span class="p">,</span>
-</span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a>    <span class="s2">&quot;TRITONE&quot;</span><span class="p">,</span>
-</span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a>    <span class="s2">&quot;DIMINISHED_FIFTH&quot;</span><span class="p">,</span>
-</span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a>    <span class="s2">&quot;PERFECT_FIFTH&quot;</span><span class="p">,</span>
-</span><span id="L-28"><a href="#L-28"><span class="linenos">28</span></a>    <span class="s2">&quot;MINOR_SIXTH&quot;</span><span class="p">,</span>
-</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a>    <span class="s2">&quot;MAJOR_SIXTH&quot;</span><span class="p">,</span>
-</span><span id="L-30"><a href="#L-30"><span class="linenos">30</span></a>    <span class="s2">&quot;MINOR_SEVENTH&quot;</span><span class="p">,</span>
-</span><span id="L-31"><a href="#L-31"><span class="linenos">31</span></a>    <span class="s2">&quot;MAJOR_SEVENTH&quot;</span><span class="p">,</span>
-</span><span id="L-32"><a href="#L-32"><span class="linenos">32</span></a>    <span class="s2">&quot;OCTAVE&quot;</span><span class="p">,</span>
-</span><span id="L-33"><a href="#L-33"><span class="linenos">33</span></a><span class="p">]</span>
+</span><span id="L-3"><a href="#L-3"><span class="linenos"> 3</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">pychord.mode</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+</span><span id="L-4"><a href="#L-4"><span class="linenos"> 4</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">pychord.note</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+</span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">pychord.ratio</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+</span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">pychord.tone</span><span class="w"> </span><span class="kn">import</span> <span class="o">*</span>
+</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a>
+</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a>    <span class="c1"># Classes</span>
+</span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a>    <span class="s2">&quot;Tone&quot;</span><span class="p">,</span>
+</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a>    <span class="s2">&quot;Ratio&quot;</span><span class="p">,</span>
+</span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a>    <span class="s2">&quot;Interval&quot;</span><span class="p">,</span>
+</span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a>    <span class="s2">&quot;Note&quot;</span><span class="p">,</span>
+</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a>    <span class="s2">&quot;Mode&quot;</span><span class="p">,</span>
+</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a>    <span class="s2">&quot;Scale&quot;</span><span class="p">,</span>
+</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a>    <span class="c1"># Constants</span>
+</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a>    <span class="s2">&quot;OCTAVE_RATIO&quot;</span><span class="p">,</span>
+</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a>    <span class="s2">&quot;SEMITONE_RATIO&quot;</span><span class="p">,</span>
+</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a>    <span class="s2">&quot;C0_FREQUENCY&quot;</span><span class="p">,</span>
+</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a>    <span class="s2">&quot;SEMITONE&quot;</span><span class="p">,</span>
+</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a>    <span class="s2">&quot;MINOR_SECOND&quot;</span><span class="p">,</span>
+</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a>    <span class="s2">&quot;WHOLETONE&quot;</span><span class="p">,</span>
+</span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a>    <span class="s2">&quot;MAJOR_SECOND&quot;</span><span class="p">,</span>
+</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a>    <span class="s2">&quot;MINOR_THIRD&quot;</span><span class="p">,</span>
+</span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a>    <span class="s2">&quot;MAJOR_THIRD&quot;</span><span class="p">,</span>
+</span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a>    <span class="s2">&quot;PERFECT_FOURTH&quot;</span><span class="p">,</span>
+</span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a>    <span class="s2">&quot;AUGMENTED_FOURTH&quot;</span><span class="p">,</span>
+</span><span id="L-28"><a href="#L-28"><span class="linenos">28</span></a>    <span class="s2">&quot;TRITONE&quot;</span><span class="p">,</span>
+</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a>    <span class="s2">&quot;DIMINISHED_FIFTH&quot;</span><span class="p">,</span>
+</span><span id="L-30"><a href="#L-30"><span class="linenos">30</span></a>    <span class="s2">&quot;PERFECT_FIFTH&quot;</span><span class="p">,</span>
+</span><span id="L-31"><a href="#L-31"><span class="linenos">31</span></a>    <span class="s2">&quot;MINOR_SIXTH&quot;</span><span class="p">,</span>
+</span><span id="L-32"><a href="#L-32"><span class="linenos">32</span></a>    <span class="s2">&quot;MAJOR_SIXTH&quot;</span><span class="p">,</span>
+</span><span id="L-33"><a href="#L-33"><span class="linenos">33</span></a>    <span class="s2">&quot;MINOR_SEVENTH&quot;</span><span class="p">,</span>
+</span><span id="L-34"><a href="#L-34"><span class="linenos">34</span></a>    <span class="s2">&quot;MAJOR_SEVENTH&quot;</span><span class="p">,</span>
+</span><span id="L-35"><a href="#L-35"><span class="linenos">35</span></a>    <span class="s2">&quot;OCTAVE&quot;</span><span class="p">,</span>
+</span><span id="L-36"><a href="#L-36"><span class="linenos">36</span></a>    <span class="s2">&quot;IONIAN&quot;</span><span class="p">,</span>
+</span><span id="L-37"><a href="#L-37"><span class="linenos">37</span></a>    <span class="s2">&quot;PHRYGIAN&quot;</span><span class="p">,</span>
+</span><span id="L-38"><a href="#L-38"><span class="linenos">38</span></a>    <span class="s2">&quot;DORIAN&quot;</span><span class="p">,</span>
+</span><span id="L-39"><a href="#L-39"><span class="linenos">39</span></a>    <span class="s2">&quot;LYDIAN&quot;</span><span class="p">,</span>
+</span><span id="L-40"><a href="#L-40"><span class="linenos">40</span></a>    <span class="s2">&quot;MIXOLYDIAN&quot;</span><span class="p">,</span>
+</span><span id="L-41"><a href="#L-41"><span class="linenos">41</span></a>    <span class="s2">&quot;AEOLIAN&quot;</span><span class="p">,</span>
+</span><span id="L-42"><a href="#L-42"><span class="linenos">42</span></a>    <span class="s2">&quot;LOCRIAN&quot;</span><span class="p">,</span>
+</span><span id="L-43"><a href="#L-43"><span class="linenos">43</span></a><span class="p">]</span>
 </span></pre></div>
 
 
@@ -592,12 +668,12 @@ pychord    </h1>
 </span><span id="Interval-50"><a href="#Interval-50"><span class="linenos"> 50</span></a>
 </span><span id="Interval-51"><a href="#Interval-51"><span class="linenos"> 51</span></a>            <span class="k">if</span> <span class="n">offset_quantity</span> <span class="o">&gt;</span> <span class="mi">7</span><span class="p">:</span>
 </span><span id="Interval-52"><a href="#Interval-52"><span class="linenos"> 52</span></a>                <span class="n">octave</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">quantity</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="mi">7</span>
-</span><span id="Interval-53"><a href="#Interval-53"><span class="linenos"> 53</span></a>                <span class="n">offset_quantity</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">quantity</span> <span class="o">%</span> <span class="mi">7</span>
+</span><span id="Interval-53"><a href="#Interval-53"><span class="linenos"> 53</span></a>                <span class="n">offset_quantity</span> <span class="o">=</span> <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">quantity</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">7</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
 </span><span id="Interval-54"><a href="#Interval-54"><span class="linenos"> 54</span></a>
 </span><span id="Interval-55"><a href="#Interval-55"><span class="linenos"> 55</span></a>            <span class="n">offset_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">quality</span><span class="si">}{</span><span class="n">offset_quantity</span><span class="si">}</span><span class="s2">&quot;</span>
 </span><span id="Interval-56"><a href="#Interval-56"><span class="linenos"> 56</span></a>
 </span><span id="Interval-57"><a href="#Interval-57"><span class="linenos"> 57</span></a>            <span class="k">if</span> <span class="n">offset_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">INTERVAL_NAME_TO_VALUE</span><span class="p">:</span>
-</span><span id="Interval-58"><a href="#Interval-58"><span class="linenos"> 58</span></a>                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid 12TET interval name: &#39;</span><span class="si">{</span><span class="n">offset_name</span><span class="si">}</span><span class="s2">&#39;!&quot;</span><span class="p">)</span>
+</span><span id="Interval-58"><a href="#Interval-58"><span class="linenos"> 58</span></a>                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid 12TET interval name: &#39;</span><span class="si">{</span><span class="n">interval</span><span class="si">}</span><span class="s2">&#39;!&quot;</span><span class="p">)</span>
 </span><span id="Interval-59"><a href="#Interval-59"><span class="linenos"> 59</span></a>
 </span><span id="Interval-60"><a href="#Interval-60"><span class="linenos"> 60</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">semitones</span> <span class="o">=</span> <span class="n">octave</span> <span class="o">*</span> <span class="n">SEMITONES_PER_OCTAVE</span> <span class="o">+</span> <span class="n">INTERVAL_NAME_TO_VALUE</span><span class="p">[</span><span class="n">offset_name</span><span class="p">]</span>
 </span><span id="Interval-61"><a href="#Interval-61"><span class="linenos"> 61</span></a>
@@ -651,11 +727,17 @@ pychord    </h1>
 </span><span id="Interval-109"><a href="#Interval-109"><span class="linenos">109</span></a><span class="sd">        &quot;&quot;&quot;</span>
 </span><span id="Interval-110"><a href="#Interval-110"><span class="linenos">110</span></a>        <span class="k">return</span> <span class="o">-</span><span class="p">(</span><span class="bp">self</span> <span class="o">-</span> <span class="n">Interval</span><span class="p">(</span><span class="n">SEMITONES_PER_OCTAVE</span><span class="p">))</span>
 </span><span id="Interval-111"><a href="#Interval-111"><span class="linenos">111</span></a>
-</span><span id="Interval-112"><a href="#Interval-112"><span class="linenos">112</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;str&quot;</span><span class="p">:</span>
+</span><span id="Interval-112"><a href="#Interval-112"><span class="linenos">112</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 </span><span id="Interval-113"><a href="#Interval-113"><span class="linenos">113</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="Interval-114"><a href="#Interval-114"><span class="linenos">114</span></a><span class="sd">        Return name of interval like P5 or m7 or -M3</span>
+</span><span id="Interval-114"><a href="#Interval-114"><span class="linenos">114</span></a><span class="sd">        Return name of `Interval` like P5 or m7 or -M3</span>
 </span><span id="Interval-115"><a href="#Interval-115"><span class="linenos">115</span></a><span class="sd">        &quot;&quot;&quot;</span>
 </span><span id="Interval-116"><a href="#Interval-116"><span class="linenos">116</span></a>        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;-&#39;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">semitones</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="si">}{</span><span class="bp">self</span><span class="o">.</span><span class="n">quality</span><span class="si">}{</span><span class="bp">self</span><span class="o">.</span><span class="n">quantity</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span id="Interval-117"><a href="#Interval-117"><span class="linenos">117</span></a>
+</span><span id="Interval-118"><a href="#Interval-118"><span class="linenos">118</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">decompound</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Interval&quot;</span><span class="p">:</span>
+</span><span id="Interval-119"><a href="#Interval-119"><span class="linenos">119</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="Interval-120"><a href="#Interval-120"><span class="linenos">120</span></a><span class="sd">        Returns the same `Interval` without any octave offset</span>
+</span><span id="Interval-121"><a href="#Interval-121"><span class="linenos">121</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="Interval-122"><a href="#Interval-122"><span class="linenos">122</span></a>        <span class="k">return</span> <span class="n">Interval</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">semitones</span> <span class="o">%</span> <span class="n">SEMITONES_PER_OCTAVE</span><span class="p">)</span>
 </span></pre></div>
 
 
@@ -703,12 +785,12 @@ pychord    </h1>
 </span><span id="Interval.__init__-50"><a href="#Interval.__init__-50"><span class="linenos">50</span></a>
 </span><span id="Interval.__init__-51"><a href="#Interval.__init__-51"><span class="linenos">51</span></a>            <span class="k">if</span> <span class="n">offset_quantity</span> <span class="o">&gt;</span> <span class="mi">7</span><span class="p">:</span>
 </span><span id="Interval.__init__-52"><a href="#Interval.__init__-52"><span class="linenos">52</span></a>                <span class="n">octave</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">quantity</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="mi">7</span>
-</span><span id="Interval.__init__-53"><a href="#Interval.__init__-53"><span class="linenos">53</span></a>                <span class="n">offset_quantity</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">quantity</span> <span class="o">%</span> <span class="mi">7</span>
+</span><span id="Interval.__init__-53"><a href="#Interval.__init__-53"><span class="linenos">53</span></a>                <span class="n">offset_quantity</span> <span class="o">=</span> <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">quantity</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">7</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
 </span><span id="Interval.__init__-54"><a href="#Interval.__init__-54"><span class="linenos">54</span></a>
 </span><span id="Interval.__init__-55"><a href="#Interval.__init__-55"><span class="linenos">55</span></a>            <span class="n">offset_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">quality</span><span class="si">}{</span><span class="n">offset_quantity</span><span class="si">}</span><span class="s2">&quot;</span>
 </span><span id="Interval.__init__-56"><a href="#Interval.__init__-56"><span class="linenos">56</span></a>
 </span><span id="Interval.__init__-57"><a href="#Interval.__init__-57"><span class="linenos">57</span></a>            <span class="k">if</span> <span class="n">offset_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">INTERVAL_NAME_TO_VALUE</span><span class="p">:</span>
-</span><span id="Interval.__init__-58"><a href="#Interval.__init__-58"><span class="linenos">58</span></a>                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid 12TET interval name: &#39;</span><span class="si">{</span><span class="n">offset_name</span><span class="si">}</span><span class="s2">&#39;!&quot;</span><span class="p">)</span>
+</span><span id="Interval.__init__-58"><a href="#Interval.__init__-58"><span class="linenos">58</span></a>                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid 12TET interval name: &#39;</span><span class="si">{</span><span class="n">interval</span><span class="si">}</span><span class="s2">&#39;!&quot;</span><span class="p">)</span>
 </span><span id="Interval.__init__-59"><a href="#Interval.__init__-59"><span class="linenos">59</span></a>
 </span><span id="Interval.__init__-60"><a href="#Interval.__init__-60"><span class="linenos">60</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">semitones</span> <span class="o">=</span> <span class="n">octave</span> <span class="o">*</span> <span class="n">SEMITONES_PER_OCTAVE</span> <span class="o">+</span> <span class="n">INTERVAL_NAME_TO_VALUE</span><span class="p">[</span><span class="n">offset_name</span><span class="p">]</span>
 </span><span id="Interval.__init__-61"><a href="#Interval.__init__-61"><span class="linenos">61</span></a>
@@ -798,15 +880,39 @@ pychord    </h1>
 
     </div>
     <a class="headerlink" href="#Interval.name"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Interval.name-112"><a href="#Interval.name-112"><span class="linenos">112</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;str&quot;</span><span class="p">:</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Interval.name-112"><a href="#Interval.name-112"><span class="linenos">112</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 </span><span id="Interval.name-113"><a href="#Interval.name-113"><span class="linenos">113</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="Interval.name-114"><a href="#Interval.name-114"><span class="linenos">114</span></a><span class="sd">        Return name of interval like P5 or m7 or -M3</span>
+</span><span id="Interval.name-114"><a href="#Interval.name-114"><span class="linenos">114</span></a><span class="sd">        Return name of `Interval` like P5 or m7 or -M3</span>
 </span><span id="Interval.name-115"><a href="#Interval.name-115"><span class="linenos">115</span></a><span class="sd">        &quot;&quot;&quot;</span>
 </span><span id="Interval.name-116"><a href="#Interval.name-116"><span class="linenos">116</span></a>        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="s1">&#39;-&#39;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">semitones</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="si">}{</span><span class="bp">self</span><span class="o">.</span><span class="n">quality</span><span class="si">}{</span><span class="bp">self</span><span class="o">.</span><span class="n">quantity</span><span class="si">}</span><span class="s2">&quot;</span>
 </span></pre></div>
 
 
-            <div class="docstring"><p>Return name of interval like P5 or m7 or -M3</p>
+            <div class="docstring"><p>Return name of <code><a href="#Interval">Interval</a></code> like P5 or m7 or -M3</p>
+</div>
+
+
+                            </div>
+                            <div id="Interval.decompound" class="classattr">
+                                        <input id="Interval.decompound-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">decompound</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">) -> <span class="n"><a href="#Interval">Interval</a></span>:</span></span>
+
+                <label class="view-source-button" for="Interval.decompound-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#Interval.decompound"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Interval.decompound-118"><a href="#Interval.decompound-118"><span class="linenos">118</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">decompound</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Interval&quot;</span><span class="p">:</span>
+</span><span id="Interval.decompound-119"><a href="#Interval.decompound-119"><span class="linenos">119</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="Interval.decompound-120"><a href="#Interval.decompound-120"><span class="linenos">120</span></a><span class="sd">        Returns the same `Interval` without any octave offset</span>
+</span><span id="Interval.decompound-121"><a href="#Interval.decompound-121"><span class="linenos">121</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="Interval.decompound-122"><a href="#Interval.decompound-122"><span class="linenos">122</span></a>        <span class="k">return</span> <span class="n">Interval</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">semitones</span> <span class="o">%</span> <span class="n">SEMITONES_PER_OCTAVE</span><span class="p">)</span>
+</span></pre></div>
+
+
+            <div class="docstring"><p>Returns the same <code><a href="#Interval">Interval</a></code> without any octave offset</p>
 </div>
 
 
@@ -915,6 +1021,28 @@ pychord    </h1>
 </span><span id="Note-99"><a href="#Note-99"><span class="linenos"> 99</span></a>            <span class="k">return</span> <span class="n">Note</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">semitone</span> <span class="o">+</span> <span class="n">interval</span><span class="o">.</span><span class="n">semitones</span><span class="p">)</span>
 </span><span id="Note-100"><a href="#Note-100"><span class="linenos">100</span></a>        <span class="k">else</span><span class="p">:</span>
 </span><span id="Note-101"><a href="#Note-101"><span class="linenos">101</span></a>            <span class="k">return</span> <span class="n">Tone</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">frequency</span><span class="p">)</span> <span class="o">+</span> <span class="n">interval</span>
+</span><span id="Note-102"><a href="#Note-102"><span class="linenos">102</span></a>
+</span><span id="Note-103"><a href="#Note-103"><span class="linenos">103</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">following</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">note</span><span class="p">:</span> <span class="s2">&quot;Note&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Note&quot;</span><span class="p">:</span>
+</span><span id="Note-104"><a href="#Note-104"><span class="linenos">104</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="Note-105"><a href="#Note-105"><span class="linenos">105</span></a><span class="sd">        Return the higher octave of this `Note` following `note`</span>
+</span><span id="Note-106"><a href="#Note-106"><span class="linenos">106</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="Note-107"><a href="#Note-107"><span class="linenos">107</span></a>
+</span><span id="Note-108"><a href="#Note-108"><span class="linenos">108</span></a>        <span class="n">i</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span> <span class="o">-</span> <span class="n">note</span><span class="p">)</span><span class="o">.</span><span class="n">decompound</span><span class="p">()</span>
+</span><span id="Note-109"><a href="#Note-109"><span class="linenos">109</span></a>
+</span><span id="Note-110"><a href="#Note-110"><span class="linenos">110</span></a>        <span class="n">i</span> <span class="o">=</span> <span class="n">Interval</span><span class="p">(</span><span class="s2">&quot;P8&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">semitones</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">i</span>
+</span><span id="Note-111"><a href="#Note-111"><span class="linenos">111</span></a>
+</span><span id="Note-112"><a href="#Note-112"><span class="linenos">112</span></a>        <span class="k">return</span> <span class="n">note</span> <span class="o">+</span> <span class="n">i</span>
+</span><span id="Note-113"><a href="#Note-113"><span class="linenos">113</span></a>
+</span><span id="Note-114"><a href="#Note-114"><span class="linenos">114</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">preceding</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">note</span><span class="p">:</span> <span class="s2">&quot;Note&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Note&quot;</span><span class="p">:</span>
+</span><span id="Note-115"><a href="#Note-115"><span class="linenos">115</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="Note-116"><a href="#Note-116"><span class="linenos">116</span></a><span class="sd">        Return the lower octave of this `Note` preceding `note`</span>
+</span><span id="Note-117"><a href="#Note-117"><span class="linenos">117</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="Note-118"><a href="#Note-118"><span class="linenos">118</span></a>
+</span><span id="Note-119"><a href="#Note-119"><span class="linenos">119</span></a>        <span class="n">i</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="n">note</span> <span class="o">-</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">decompound</span><span class="p">()</span>
+</span><span id="Note-120"><a href="#Note-120"><span class="linenos">120</span></a>
+</span><span id="Note-121"><a href="#Note-121"><span class="linenos">121</span></a>        <span class="n">i</span> <span class="o">=</span> <span class="o">-</span><span class="n">Interval</span><span class="p">(</span><span class="s2">&quot;P8&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">semitones</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">i</span>
+</span><span id="Note-122"><a href="#Note-122"><span class="linenos">122</span></a>
+</span><span id="Note-123"><a href="#Note-123"><span class="linenos">123</span></a>        <span class="k">return</span> <span class="n">note</span> <span class="o">+</span> <span class="n">i</span>
 </span></pre></div>
 
 
@@ -1080,6 +1208,414 @@ pychord    </h1>
 
 
             <div class="docstring"><p>Transpose a note by an <code><a href="#Interval">Interval</a></code> or <code><a href="#Ratio">Ratio</a></code>. Passing in an <code><a href="#Interval">Interval</a></code> will return a <code><a href="#Note">Note</a></code> while passing in a <code><a href="#Ratio">Ratio</a></code> will return a <code><a href="#Tone">Tone</a></code></p>
+</div>
+
+
+                            </div>
+                            <div id="Note.following" class="classattr">
+                                        <input id="Note.following-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">following</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">note</span><span class="p">:</span> <span class="n"><a href="#Note">Note</a></span></span><span class="return-annotation">) -> <span class="n"><a href="#Note">Note</a></span>:</span></span>
+
+                <label class="view-source-button" for="Note.following-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#Note.following"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Note.following-103"><a href="#Note.following-103"><span class="linenos">103</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">following</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">note</span><span class="p">:</span> <span class="s2">&quot;Note&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Note&quot;</span><span class="p">:</span>
+</span><span id="Note.following-104"><a href="#Note.following-104"><span class="linenos">104</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="Note.following-105"><a href="#Note.following-105"><span class="linenos">105</span></a><span class="sd">        Return the higher octave of this `Note` following `note`</span>
+</span><span id="Note.following-106"><a href="#Note.following-106"><span class="linenos">106</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="Note.following-107"><a href="#Note.following-107"><span class="linenos">107</span></a>
+</span><span id="Note.following-108"><a href="#Note.following-108"><span class="linenos">108</span></a>        <span class="n">i</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span> <span class="o">-</span> <span class="n">note</span><span class="p">)</span><span class="o">.</span><span class="n">decompound</span><span class="p">()</span>
+</span><span id="Note.following-109"><a href="#Note.following-109"><span class="linenos">109</span></a>
+</span><span id="Note.following-110"><a href="#Note.following-110"><span class="linenos">110</span></a>        <span class="n">i</span> <span class="o">=</span> <span class="n">Interval</span><span class="p">(</span><span class="s2">&quot;P8&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">semitones</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">i</span>
+</span><span id="Note.following-111"><a href="#Note.following-111"><span class="linenos">111</span></a>
+</span><span id="Note.following-112"><a href="#Note.following-112"><span class="linenos">112</span></a>        <span class="k">return</span> <span class="n">note</span> <span class="o">+</span> <span class="n">i</span>
+</span></pre></div>
+
+
+            <div class="docstring"><p>Return the higher octave of this <code><a href="#Note">Note</a></code> following <code>note</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Note.preceding" class="classattr">
+                                        <input id="Note.preceding-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">preceding</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">note</span><span class="p">:</span> <span class="n"><a href="#Note">Note</a></span></span><span class="return-annotation">) -> <span class="n"><a href="#Note">Note</a></span>:</span></span>
+
+                <label class="view-source-button" for="Note.preceding-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#Note.preceding"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Note.preceding-114"><a href="#Note.preceding-114"><span class="linenos">114</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">preceding</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">note</span><span class="p">:</span> <span class="s2">&quot;Note&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Note&quot;</span><span class="p">:</span>
+</span><span id="Note.preceding-115"><a href="#Note.preceding-115"><span class="linenos">115</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="Note.preceding-116"><a href="#Note.preceding-116"><span class="linenos">116</span></a><span class="sd">        Return the lower octave of this `Note` preceding `note`</span>
+</span><span id="Note.preceding-117"><a href="#Note.preceding-117"><span class="linenos">117</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="Note.preceding-118"><a href="#Note.preceding-118"><span class="linenos">118</span></a>
+</span><span id="Note.preceding-119"><a href="#Note.preceding-119"><span class="linenos">119</span></a>        <span class="n">i</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="n">note</span> <span class="o">-</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">decompound</span><span class="p">()</span>
+</span><span id="Note.preceding-120"><a href="#Note.preceding-120"><span class="linenos">120</span></a>
+</span><span id="Note.preceding-121"><a href="#Note.preceding-121"><span class="linenos">121</span></a>        <span class="n">i</span> <span class="o">=</span> <span class="o">-</span><span class="n">Interval</span><span class="p">(</span><span class="s2">&quot;P8&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">semitones</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">i</span>
+</span><span id="Note.preceding-122"><a href="#Note.preceding-122"><span class="linenos">122</span></a>
+</span><span id="Note.preceding-123"><a href="#Note.preceding-123"><span class="linenos">123</span></a>        <span class="k">return</span> <span class="n">note</span> <span class="o">+</span> <span class="n">i</span>
+</span></pre></div>
+
+
+            <div class="docstring"><p>Return the lower octave of this <code><a href="#Note">Note</a></code> preceding <code>note</code></p>
+</div>
+
+
+                            </div>
+                </section>
+                <section id="Mode">
+                            <input id="Mode-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr class">
+            
+    <span class="def">class</span>
+    <span class="name">Mode</span>:
+
+                <label class="view-source-button" for="Mode-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#Mode"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Mode-7"><a href="#Mode-7"><span class="linenos"> 7</span></a><span class="k">class</span><span class="w"> </span><span class="nc">Mode</span><span class="p">:</span>
+</span><span id="Mode-8"><a href="#Mode-8"><span class="linenos"> 8</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="Mode-9"><a href="#Mode-9"><span class="linenos"> 9</span></a><span class="sd">    A musical `Mode` consisting of intervals making up an abstract tonicless `Scale`</span>
+</span><span id="Mode-10"><a href="#Mode-10"><span class="linenos">10</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="Mode-11"><a href="#Mode-11"><span class="linenos">11</span></a>
+</span><span id="Mode-12"><a href="#Mode-12"><span class="linenos">12</span></a>    <span class="n">intervals</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Interval</span><span class="p">]</span>
+</span><span id="Mode-13"><a href="#Mode-13"><span class="linenos">13</span></a>    <span class="s2">&quot;List of `Interval`&#39;s from the tonic of the `Mode`&quot;</span>
+</span><span id="Mode-14"><a href="#Mode-14"><span class="linenos">14</span></a>
+</span><span id="Mode-15"><a href="#Mode-15"><span class="linenos">15</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">intervals</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Interval</span><span class="p">]):</span>
+</span><span id="Mode-16"><a href="#Mode-16"><span class="linenos">16</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">intervals</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+</span><span id="Mode-17"><a href="#Mode-17"><span class="linenos">17</span></a>            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">()</span>
+</span><span id="Mode-18"><a href="#Mode-18"><span class="linenos">18</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">intervals</span> <span class="o">=</span> <span class="n">intervals</span>
+</span><span id="Mode-19"><a href="#Mode-19"><span class="linenos">19</span></a>
+</span><span id="Mode-20"><a href="#Mode-20"><span class="linenos">20</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="Mode-21"><a href="#Mode-21"><span class="linenos">21</span></a>        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;[Mode </span><span class="si">{</span><span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">i</span><span class="o">.</span><span class="n">name</span><span class="p">()</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">intervals</span><span class="p">])</span><span class="si">}</span><span class="s2">]&quot;</span>
+</span><span id="Mode-22"><a href="#Mode-22"><span class="linenos">22</span></a>
+</span><span id="Mode-23"><a href="#Mode-23"><span class="linenos">23</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="Mode-24"><a href="#Mode-24"><span class="linenos">24</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">()</span>
+</span><span id="Mode-25"><a href="#Mode-25"><span class="linenos">25</span></a>
+</span><span id="Mode-26"><a href="#Mode-26"><span class="linenos">26</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s2">&quot;Mode&quot;</span><span class="p">):</span>
+</span><span id="Mode-27"><a href="#Mode-27"><span class="linenos">27</span></a>        <span class="k">return</span> <span class="p">(</span>
+</span><span id="Mode-28"><a href="#Mode-28"><span class="linenos">28</span></a>            <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Mode</span><span class="p">)</span>
+</span><span id="Mode-29"><a href="#Mode-29"><span class="linenos">29</span></a>            <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">intervals</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">intervals</span><span class="p">)</span>
+</span><span id="Mode-30"><a href="#Mode-30"><span class="linenos">30</span></a>            <span class="ow">and</span> <span class="nb">all</span><span class="p">(</span><span class="n">x</span> <span class="o">==</span> <span class="n">y</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">intervals</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">intervals</span><span class="p">))</span>
+</span><span id="Mode-31"><a href="#Mode-31"><span class="linenos">31</span></a>        <span class="p">)</span>
+</span><span id="Mode-32"><a href="#Mode-32"><span class="linenos">32</span></a>
+</span><span id="Mode-33"><a href="#Mode-33"><span class="linenos">33</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__ne__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s2">&quot;Mode&quot;</span><span class="p">):</span>
+</span><span id="Mode-34"><a href="#Mode-34"><span class="linenos">34</span></a>        <span class="k">return</span> <span class="p">(</span>
+</span><span id="Mode-35"><a href="#Mode-35"><span class="linenos">35</span></a>            <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Mode</span><span class="p">)</span>
+</span><span id="Mode-36"><a href="#Mode-36"><span class="linenos">36</span></a>            <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">intervals</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">intervals</span><span class="p">)</span>
+</span><span id="Mode-37"><a href="#Mode-37"><span class="linenos">37</span></a>            <span class="ow">or</span> <span class="nb">any</span><span class="p">(</span><span class="n">x</span> <span class="o">!=</span> <span class="n">y</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">intervals</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">intervals</span><span class="p">))</span>
+</span><span id="Mode-38"><a href="#Mode-38"><span class="linenos">38</span></a>        <span class="p">)</span>
+</span><span id="Mode-39"><a href="#Mode-39"><span class="linenos">39</span></a>
+</span><span id="Mode-40"><a href="#Mode-40"><span class="linenos">40</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__lshift__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Mode&quot;</span><span class="p">:</span>
+</span><span id="Mode-41"><a href="#Mode-41"><span class="linenos">41</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+</span><span id="Mode-42"><a href="#Mode-42"><span class="linenos">42</span></a>            <span class="k">return</span> <span class="bp">NotImplemented</span>
+</span><span id="Mode-43"><a href="#Mode-43"><span class="linenos">43</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">shifted</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+</span><span id="Mode-44"><a href="#Mode-44"><span class="linenos">44</span></a>
+</span><span id="Mode-45"><a href="#Mode-45"><span class="linenos">45</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__rshift__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Mode&quot;</span><span class="p">:</span>
+</span><span id="Mode-46"><a href="#Mode-46"><span class="linenos">46</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+</span><span id="Mode-47"><a href="#Mode-47"><span class="linenos">47</span></a>            <span class="k">return</span> <span class="bp">NotImplemented</span>
+</span><span id="Mode-48"><a href="#Mode-48"><span class="linenos">48</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">shifted</span><span class="p">(</span><span class="o">-</span><span class="n">other</span><span class="p">)</span>
+</span><span id="Mode-49"><a href="#Mode-49"><span class="linenos">49</span></a>
+</span><span id="Mode-50"><a href="#Mode-50"><span class="linenos">50</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">shifted</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">steps</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Mode&quot;</span><span class="p">:</span>
+</span><span id="Mode-51"><a href="#Mode-51"><span class="linenos">51</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="Mode-52"><a href="#Mode-52"><span class="linenos">52</span></a><span class="sd">        Return a shifted version of this `Mode` essentially the same `Mode` but starting on step `steps`</span>
+</span><span id="Mode-53"><a href="#Mode-53"><span class="linenos">53</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="Mode-54"><a href="#Mode-54"><span class="linenos">54</span></a>
+</span><span id="Mode-55"><a href="#Mode-55"><span class="linenos">55</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">steps</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+</span><span id="Mode-56"><a href="#Mode-56"><span class="linenos">56</span></a>            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">()</span>
+</span><span id="Mode-57"><a href="#Mode-57"><span class="linenos">57</span></a>
+</span><span id="Mode-58"><a href="#Mode-58"><span class="linenos">58</span></a>        <span class="n">steps</span> <span class="o">=</span> <span class="n">steps</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">intervals</span><span class="p">)</span>
+</span><span id="Mode-59"><a href="#Mode-59"><span class="linenos">59</span></a>
+</span><span id="Mode-60"><a href="#Mode-60"><span class="linenos">60</span></a>        <span class="n">shifted_intervals</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span id="Mode-61"><a href="#Mode-61"><span class="linenos">61</span></a>
+</span><span id="Mode-62"><a href="#Mode-62"><span class="linenos">62</span></a>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">intervals</span><span class="p">)):</span>
+</span><span id="Mode-63"><a href="#Mode-63"><span class="linenos">63</span></a>            <span class="n">shifted_intervals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+</span><span id="Mode-64"><a href="#Mode-64"><span class="linenos">64</span></a>                <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">intervals</span><span class="p">[(</span><span class="n">i</span> <span class="o">+</span> <span class="n">steps</span><span class="p">)</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">intervals</span><span class="p">)]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">intervals</span><span class="p">[</span><span class="n">steps</span><span class="p">])</span><span class="o">.</span><span class="n">decompound</span><span class="p">()</span>
+</span><span id="Mode-65"><a href="#Mode-65"><span class="linenos">65</span></a>            <span class="p">)</span>
+</span><span id="Mode-66"><a href="#Mode-66"><span class="linenos">66</span></a>
+</span><span id="Mode-67"><a href="#Mode-67"><span class="linenos">67</span></a>        <span class="k">return</span> <span class="n">Mode</span><span class="p">(</span><span class="n">shifted_intervals</span><span class="p">)</span>
+</span><span id="Mode-68"><a href="#Mode-68"><span class="linenos">68</span></a>
+</span><span id="Mode-69"><a href="#Mode-69"><span class="linenos">69</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">to_scale</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tonic</span><span class="p">:</span> <span class="n">Note</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Scale&quot;</span><span class="p">:</span>
+</span><span id="Mode-70"><a href="#Mode-70"><span class="linenos">70</span></a>        <span class="k">return</span> <span class="n">Scale</span><span class="p">([</span><span class="n">tonic</span> <span class="o">+</span> <span class="n">interval</span> <span class="k">for</span> <span class="n">interval</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">intervals</span><span class="p">])</span>
+</span></pre></div>
+
+
+            <div class="docstring"><p>A musical <code><a href="#Mode">Mode</a></code> consisting of intervals making up an abstract tonicless <code><a href="#Scale">Scale</a></code></p>
+</div>
+
+
+                            <div id="Mode.__init__" class="classattr">
+                                        <input id="Mode.__init__-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+            
+        <span class="name">Mode</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">intervals</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n"><a href="#Interval">Interval</a></span><span class="p">]</span></span>)</span>
+
+                <label class="view-source-button" for="Mode.__init__-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#Mode.__init__"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Mode.__init__-15"><a href="#Mode.__init__-15"><span class="linenos">15</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">intervals</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Interval</span><span class="p">]):</span>
+</span><span id="Mode.__init__-16"><a href="#Mode.__init__-16"><span class="linenos">16</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">intervals</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+</span><span id="Mode.__init__-17"><a href="#Mode.__init__-17"><span class="linenos">17</span></a>            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">()</span>
+</span><span id="Mode.__init__-18"><a href="#Mode.__init__-18"><span class="linenos">18</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">intervals</span> <span class="o">=</span> <span class="n">intervals</span>
+</span></pre></div>
+
+
+    
+
+                            </div>
+                            <div id="Mode.intervals" class="classattr">
+                                <div class="attr variable">
+            <span class="name">intervals</span><span class="annotation">: list[<a href="#Interval">Interval</a>]</span>
+
+        
+    </div>
+    <a class="headerlink" href="#Mode.intervals"></a>
+    
+            <div class="docstring"><p>List of <code><a href="#Interval">Interval</a></code>'s from the tonic of the <code><a href="#Mode">Mode</a></code></p>
+</div>
+
+
+                            </div>
+                            <div id="Mode.shifted" class="classattr">
+                                        <input id="Mode.shifted-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">shifted</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">steps</span><span class="p">:</span> <span class="nb">int</span></span><span class="return-annotation">) -> <span class="n"><a href="#Mode">Mode</a></span>:</span></span>
+
+                <label class="view-source-button" for="Mode.shifted-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#Mode.shifted"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Mode.shifted-50"><a href="#Mode.shifted-50"><span class="linenos">50</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">shifted</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">steps</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Mode&quot;</span><span class="p">:</span>
+</span><span id="Mode.shifted-51"><a href="#Mode.shifted-51"><span class="linenos">51</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="Mode.shifted-52"><a href="#Mode.shifted-52"><span class="linenos">52</span></a><span class="sd">        Return a shifted version of this `Mode` essentially the same `Mode` but starting on step `steps`</span>
+</span><span id="Mode.shifted-53"><a href="#Mode.shifted-53"><span class="linenos">53</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="Mode.shifted-54"><a href="#Mode.shifted-54"><span class="linenos">54</span></a>
+</span><span id="Mode.shifted-55"><a href="#Mode.shifted-55"><span class="linenos">55</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">steps</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+</span><span id="Mode.shifted-56"><a href="#Mode.shifted-56"><span class="linenos">56</span></a>            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">()</span>
+</span><span id="Mode.shifted-57"><a href="#Mode.shifted-57"><span class="linenos">57</span></a>
+</span><span id="Mode.shifted-58"><a href="#Mode.shifted-58"><span class="linenos">58</span></a>        <span class="n">steps</span> <span class="o">=</span> <span class="n">steps</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">intervals</span><span class="p">)</span>
+</span><span id="Mode.shifted-59"><a href="#Mode.shifted-59"><span class="linenos">59</span></a>
+</span><span id="Mode.shifted-60"><a href="#Mode.shifted-60"><span class="linenos">60</span></a>        <span class="n">shifted_intervals</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span id="Mode.shifted-61"><a href="#Mode.shifted-61"><span class="linenos">61</span></a>
+</span><span id="Mode.shifted-62"><a href="#Mode.shifted-62"><span class="linenos">62</span></a>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">intervals</span><span class="p">)):</span>
+</span><span id="Mode.shifted-63"><a href="#Mode.shifted-63"><span class="linenos">63</span></a>            <span class="n">shifted_intervals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+</span><span id="Mode.shifted-64"><a href="#Mode.shifted-64"><span class="linenos">64</span></a>                <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">intervals</span><span class="p">[(</span><span class="n">i</span> <span class="o">+</span> <span class="n">steps</span><span class="p">)</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">intervals</span><span class="p">)]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">intervals</span><span class="p">[</span><span class="n">steps</span><span class="p">])</span><span class="o">.</span><span class="n">decompound</span><span class="p">()</span>
+</span><span id="Mode.shifted-65"><a href="#Mode.shifted-65"><span class="linenos">65</span></a>            <span class="p">)</span>
+</span><span id="Mode.shifted-66"><a href="#Mode.shifted-66"><span class="linenos">66</span></a>
+</span><span id="Mode.shifted-67"><a href="#Mode.shifted-67"><span class="linenos">67</span></a>        <span class="k">return</span> <span class="n">Mode</span><span class="p">(</span><span class="n">shifted_intervals</span><span class="p">)</span>
+</span></pre></div>
+
+
+            <div class="docstring"><p>Return a shifted version of this <code><a href="#Mode">Mode</a></code> essentially the same <code><a href="#Mode">Mode</a></code> but starting on step <code>steps</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Mode.to_scale" class="classattr">
+                                        <input id="Mode.to_scale-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">to_scale</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">tonic</span><span class="p">:</span> <span class="n"><a href="#Note">Note</a></span></span><span class="return-annotation">) -> <span class="n"><a href="#Scale">Scale</a></span>:</span></span>
+
+                <label class="view-source-button" for="Mode.to_scale-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#Mode.to_scale"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Mode.to_scale-69"><a href="#Mode.to_scale-69"><span class="linenos">69</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">to_scale</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tonic</span><span class="p">:</span> <span class="n">Note</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Scale&quot;</span><span class="p">:</span>
+</span><span id="Mode.to_scale-70"><a href="#Mode.to_scale-70"><span class="linenos">70</span></a>        <span class="k">return</span> <span class="n">Scale</span><span class="p">([</span><span class="n">tonic</span> <span class="o">+</span> <span class="n">interval</span> <span class="k">for</span> <span class="n">interval</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">intervals</span><span class="p">])</span>
+</span></pre></div>
+
+
+    
+
+                            </div>
+                </section>
+                <section id="Scale">
+                            <input id="Scale-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr class">
+            
+    <span class="def">class</span>
+    <span class="name">Scale</span>:
+
+                <label class="view-source-button" for="Scale-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#Scale"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Scale-5"><a href="#Scale-5"><span class="linenos"> 5</span></a><span class="k">class</span><span class="w"> </span><span class="nc">Scale</span><span class="p">:</span>
+</span><span id="Scale-6"><a href="#Scale-6"><span class="linenos"> 6</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="Scale-7"><a href="#Scale-7"><span class="linenos"> 7</span></a><span class="sd">    A musical `Scale` consisting of a list of ordered `Note`s</span>
+</span><span id="Scale-8"><a href="#Scale-8"><span class="linenos"> 8</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="Scale-9"><a href="#Scale-9"><span class="linenos"> 9</span></a>
+</span><span id="Scale-10"><a href="#Scale-10"><span class="linenos">10</span></a>    <span class="n">notes</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Note</span><span class="p">]</span>
+</span><span id="Scale-11"><a href="#Scale-11"><span class="linenos">11</span></a>    <span class="s2">&quot;List of `Note`s in the `Scale`&quot;</span>
+</span><span id="Scale-12"><a href="#Scale-12"><span class="linenos">12</span></a>
+</span><span id="Scale-13"><a href="#Scale-13"><span class="linenos">13</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">notes</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Note</span><span class="p">]):</span>
+</span><span id="Scale-14"><a href="#Scale-14"><span class="linenos">14</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">notes</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+</span><span id="Scale-15"><a href="#Scale-15"><span class="linenos">15</span></a>            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">()</span>
+</span><span id="Scale-16"><a href="#Scale-16"><span class="linenos">16</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">notes</span> <span class="o">=</span> <span class="n">notes</span>
+</span><span id="Scale-17"><a href="#Scale-17"><span class="linenos">17</span></a>
+</span><span id="Scale-18"><a href="#Scale-18"><span class="linenos">18</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="Scale-19"><a href="#Scale-19"><span class="linenos">19</span></a>        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;[Scale </span><span class="si">{</span><span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">n</span><span class="o">.</span><span class="n">name</span><span class="p">()</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">notes</span><span class="p">])</span><span class="si">}</span><span class="s2">]&quot;</span>
+</span><span id="Scale-20"><a href="#Scale-20"><span class="linenos">20</span></a>
+</span><span id="Scale-21"><a href="#Scale-21"><span class="linenos">21</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="Scale-22"><a href="#Scale-22"><span class="linenos">22</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">()</span>
+</span><span id="Scale-23"><a href="#Scale-23"><span class="linenos">23</span></a>
+</span><span id="Scale-24"><a href="#Scale-24"><span class="linenos">24</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s2">&quot;Scale&quot;</span><span class="p">):</span>
+</span><span id="Scale-25"><a href="#Scale-25"><span class="linenos">25</span></a>        <span class="k">return</span> <span class="p">(</span>
+</span><span id="Scale-26"><a href="#Scale-26"><span class="linenos">26</span></a>            <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Scale</span><span class="p">)</span>
+</span><span id="Scale-27"><a href="#Scale-27"><span class="linenos">27</span></a>            <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">notes</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">notes</span><span class="p">)</span>
+</span><span id="Scale-28"><a href="#Scale-28"><span class="linenos">28</span></a>            <span class="ow">and</span> <span class="nb">all</span><span class="p">(</span><span class="n">x</span> <span class="o">==</span> <span class="n">y</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">notes</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">notes</span><span class="p">))</span>
+</span><span id="Scale-29"><a href="#Scale-29"><span class="linenos">29</span></a>        <span class="p">)</span>
+</span><span id="Scale-30"><a href="#Scale-30"><span class="linenos">30</span></a>
+</span><span id="Scale-31"><a href="#Scale-31"><span class="linenos">31</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__ne__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="s2">&quot;Scale&quot;</span><span class="p">):</span>
+</span><span id="Scale-32"><a href="#Scale-32"><span class="linenos">32</span></a>        <span class="k">return</span> <span class="p">(</span>
+</span><span id="Scale-33"><a href="#Scale-33"><span class="linenos">33</span></a>            <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">Scale</span><span class="p">)</span>
+</span><span id="Scale-34"><a href="#Scale-34"><span class="linenos">34</span></a>            <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">notes</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">notes</span><span class="p">)</span>
+</span><span id="Scale-35"><a href="#Scale-35"><span class="linenos">35</span></a>            <span class="ow">or</span> <span class="nb">any</span><span class="p">(</span><span class="n">x</span> <span class="o">!=</span> <span class="n">y</span> <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">notes</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">notes</span><span class="p">))</span>
+</span><span id="Scale-36"><a href="#Scale-36"><span class="linenos">36</span></a>        <span class="p">)</span>
+</span><span id="Scale-37"><a href="#Scale-37"><span class="linenos">37</span></a>
+</span><span id="Scale-38"><a href="#Scale-38"><span class="linenos">38</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__lshift__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Scale&quot;</span><span class="p">:</span>
+</span><span id="Scale-39"><a href="#Scale-39"><span class="linenos">39</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+</span><span id="Scale-40"><a href="#Scale-40"><span class="linenos">40</span></a>            <span class="k">return</span> <span class="bp">NotImplemented</span>
+</span><span id="Scale-41"><a href="#Scale-41"><span class="linenos">41</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">shifted</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
+</span><span id="Scale-42"><a href="#Scale-42"><span class="linenos">42</span></a>
+</span><span id="Scale-43"><a href="#Scale-43"><span class="linenos">43</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__rshift__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Scale&quot;</span><span class="p">:</span>
+</span><span id="Scale-44"><a href="#Scale-44"><span class="linenos">44</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+</span><span id="Scale-45"><a href="#Scale-45"><span class="linenos">45</span></a>            <span class="k">return</span> <span class="bp">NotImplemented</span>
+</span><span id="Scale-46"><a href="#Scale-46"><span class="linenos">46</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">shifted</span><span class="p">(</span><span class="o">-</span><span class="n">other</span><span class="p">)</span>
+</span><span id="Scale-47"><a href="#Scale-47"><span class="linenos">47</span></a>
+</span><span id="Scale-48"><a href="#Scale-48"><span class="linenos">48</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">shifted</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">steps</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Scale&quot;</span><span class="p">:</span>
+</span><span id="Scale-49"><a href="#Scale-49"><span class="linenos">49</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="Scale-50"><a href="#Scale-50"><span class="linenos">50</span></a><span class="sd">        Return a shifted version of this `Scale` essentially the same `Scale` but starting on step `steps`</span>
+</span><span id="Scale-51"><a href="#Scale-51"><span class="linenos">51</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="Scale-52"><a href="#Scale-52"><span class="linenos">52</span></a>
+</span><span id="Scale-53"><a href="#Scale-53"><span class="linenos">53</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">steps</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+</span><span id="Scale-54"><a href="#Scale-54"><span class="linenos">54</span></a>            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">()</span>
+</span><span id="Scale-55"><a href="#Scale-55"><span class="linenos">55</span></a>
+</span><span id="Scale-56"><a href="#Scale-56"><span class="linenos">56</span></a>        <span class="n">shifted_notes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">notes</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</span><span id="Scale-57"><a href="#Scale-57"><span class="linenos">57</span></a>
+</span><span id="Scale-58"><a href="#Scale-58"><span class="linenos">58</span></a>        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">steps</span><span class="p">)):</span>
+</span><span id="Scale-59"><a href="#Scale-59"><span class="linenos">59</span></a>            <span class="k">if</span> <span class="n">steps</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+</span><span id="Scale-60"><a href="#Scale-60"><span class="linenos">60</span></a>                <span class="n">shifted_notes</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">shifted_notes</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">preceding</span><span class="p">(</span><span class="n">shifted_notes</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+</span><span id="Scale-61"><a href="#Scale-61"><span class="linenos">61</span></a>            <span class="k">elif</span> <span class="n">steps</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+</span><span id="Scale-62"><a href="#Scale-62"><span class="linenos">62</span></a>                <span class="n">shifted_notes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">shifted_notes</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">following</span><span class="p">(</span><span class="n">shifted_notes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+</span><span id="Scale-63"><a href="#Scale-63"><span class="linenos">63</span></a>
+</span><span id="Scale-64"><a href="#Scale-64"><span class="linenos">64</span></a>        <span class="k">return</span> <span class="n">Scale</span><span class="p">(</span><span class="n">shifted_notes</span><span class="p">)</span>
+</span><span id="Scale-65"><a href="#Scale-65"><span class="linenos">65</span></a>
+</span><span id="Scale-66"><a href="#Scale-66"><span class="linenos">66</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">tonic</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Note</span><span class="p">:</span>
+</span><span id="Scale-67"><a href="#Scale-67"><span class="linenos">67</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="Scale-68"><a href="#Scale-68"><span class="linenos">68</span></a><span class="sd">        Return the tonic of the scale as a `Note`</span>
+</span><span id="Scale-69"><a href="#Scale-69"><span class="linenos">69</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="Scale-70"><a href="#Scale-70"><span class="linenos">70</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">notes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span></pre></div>
+
+
+            <div class="docstring"><p>A musical <code><a href="#Scale">Scale</a></code> consisting of a list of ordered <code><a href="#Note">Note</a></code>s</p>
+</div>
+
+
+                            <div id="Scale.__init__" class="classattr">
+                                        <input id="Scale.__init__-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+            
+        <span class="name">Scale</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">notes</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n"><a href="#Note">Note</a></span><span class="p">]</span></span>)</span>
+
+                <label class="view-source-button" for="Scale.__init__-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#Scale.__init__"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Scale.__init__-13"><a href="#Scale.__init__-13"><span class="linenos">13</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">notes</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Note</span><span class="p">]):</span>
+</span><span id="Scale.__init__-14"><a href="#Scale.__init__-14"><span class="linenos">14</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">notes</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+</span><span id="Scale.__init__-15"><a href="#Scale.__init__-15"><span class="linenos">15</span></a>            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">()</span>
+</span><span id="Scale.__init__-16"><a href="#Scale.__init__-16"><span class="linenos">16</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">notes</span> <span class="o">=</span> <span class="n">notes</span>
+</span></pre></div>
+
+
+    
+
+                            </div>
+                            <div id="Scale.notes" class="classattr">
+                                <div class="attr variable">
+            <span class="name">notes</span><span class="annotation">: list[<a href="#Note">Note</a>]</span>
+
+        
+    </div>
+    <a class="headerlink" href="#Scale.notes"></a>
+    
+            <div class="docstring"><p>List of <code><a href="#Note">Note</a></code>s in the <code><a href="#Scale">Scale</a></code></p>
+</div>
+
+
+                            </div>
+                            <div id="Scale.shifted" class="classattr">
+                                        <input id="Scale.shifted-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">shifted</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">steps</span><span class="p">:</span> <span class="nb">int</span></span><span class="return-annotation">) -> <span class="n"><a href="#Scale">Scale</a></span>:</span></span>
+
+                <label class="view-source-button" for="Scale.shifted-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#Scale.shifted"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Scale.shifted-48"><a href="#Scale.shifted-48"><span class="linenos">48</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">shifted</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">steps</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Scale&quot;</span><span class="p">:</span>
+</span><span id="Scale.shifted-49"><a href="#Scale.shifted-49"><span class="linenos">49</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="Scale.shifted-50"><a href="#Scale.shifted-50"><span class="linenos">50</span></a><span class="sd">        Return a shifted version of this `Scale` essentially the same `Scale` but starting on step `steps`</span>
+</span><span id="Scale.shifted-51"><a href="#Scale.shifted-51"><span class="linenos">51</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="Scale.shifted-52"><a href="#Scale.shifted-52"><span class="linenos">52</span></a>
+</span><span id="Scale.shifted-53"><a href="#Scale.shifted-53"><span class="linenos">53</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">steps</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+</span><span id="Scale.shifted-54"><a href="#Scale.shifted-54"><span class="linenos">54</span></a>            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">()</span>
+</span><span id="Scale.shifted-55"><a href="#Scale.shifted-55"><span class="linenos">55</span></a>
+</span><span id="Scale.shifted-56"><a href="#Scale.shifted-56"><span class="linenos">56</span></a>        <span class="n">shifted_notes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">notes</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</span><span id="Scale.shifted-57"><a href="#Scale.shifted-57"><span class="linenos">57</span></a>
+</span><span id="Scale.shifted-58"><a href="#Scale.shifted-58"><span class="linenos">58</span></a>        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">steps</span><span class="p">)):</span>
+</span><span id="Scale.shifted-59"><a href="#Scale.shifted-59"><span class="linenos">59</span></a>            <span class="k">if</span> <span class="n">steps</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+</span><span id="Scale.shifted-60"><a href="#Scale.shifted-60"><span class="linenos">60</span></a>                <span class="n">shifted_notes</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">shifted_notes</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">preceding</span><span class="p">(</span><span class="n">shifted_notes</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+</span><span id="Scale.shifted-61"><a href="#Scale.shifted-61"><span class="linenos">61</span></a>            <span class="k">elif</span> <span class="n">steps</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+</span><span id="Scale.shifted-62"><a href="#Scale.shifted-62"><span class="linenos">62</span></a>                <span class="n">shifted_notes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">shifted_notes</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">following</span><span class="p">(</span><span class="n">shifted_notes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+</span><span id="Scale.shifted-63"><a href="#Scale.shifted-63"><span class="linenos">63</span></a>
+</span><span id="Scale.shifted-64"><a href="#Scale.shifted-64"><span class="linenos">64</span></a>        <span class="k">return</span> <span class="n">Scale</span><span class="p">(</span><span class="n">shifted_notes</span><span class="p">)</span>
+</span></pre></div>
+
+
+            <div class="docstring"><p>Return a shifted version of this <code><a href="#Scale">Scale</a></code> essentially the same <code><a href="#Scale">Scale</a></code> but starting on step <code>steps</code></p>
+</div>
+
+
+                            </div>
+                            <div id="Scale.tonic" class="classattr">
+                                        <input id="Scale.tonic-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">tonic</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">) -> <span class="n"><a href="#Note">Note</a></span>:</span></span>
+
+                <label class="view-source-button" for="Scale.tonic-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#Scale.tonic"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Scale.tonic-66"><a href="#Scale.tonic-66"><span class="linenos">66</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">tonic</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Note</span><span class="p">:</span>
+</span><span id="Scale.tonic-67"><a href="#Scale.tonic-67"><span class="linenos">67</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="Scale.tonic-68"><a href="#Scale.tonic-68"><span class="linenos">68</span></a><span class="sd">        Return the tonic of the scale as a `Note`</span>
+</span><span id="Scale.tonic-69"><a href="#Scale.tonic-69"><span class="linenos">69</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="Scale.tonic-70"><a href="#Scale.tonic-70"><span class="linenos">70</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">notes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span></pre></div>
+
+
+            <div class="docstring"><p>Return the tonic of the scale as a <code><a href="#Note">Note</a></code></p>
 </div>
 
 
@@ -1309,6 +1845,90 @@ pychord    </h1>
         
     </div>
     <a class="headerlink" href="#OCTAVE"></a>
+    
+    
+
+                </section>
+                <section id="IONIAN">
+                    <div class="attr variable">
+            <span class="name">IONIAN</span>        =
+<span class="default_value">[Mode P1 M2 M3 P4 P5 M6 M7]</span>
+
+        
+    </div>
+    <a class="headerlink" href="#IONIAN"></a>
+    
+    
+
+                </section>
+                <section id="PHRYGIAN">
+                    <div class="attr variable">
+            <span class="name">PHRYGIAN</span>        =
+<span class="default_value">[Mode P1 m2 m3 P4 P5 m6 m7]</span>
+
+        
+    </div>
+    <a class="headerlink" href="#PHRYGIAN"></a>
+    
+    
+
+                </section>
+                <section id="DORIAN">
+                    <div class="attr variable">
+            <span class="name">DORIAN</span>        =
+<span class="default_value">[Mode P1 M2 m3 P4 P5 M6 m7]</span>
+
+        
+    </div>
+    <a class="headerlink" href="#DORIAN"></a>
+    
+    
+
+                </section>
+                <section id="LYDIAN">
+                    <div class="attr variable">
+            <span class="name">LYDIAN</span>        =
+<span class="default_value">[Mode P1 M2 M3 d5 P5 M6 M7]</span>
+
+        
+    </div>
+    <a class="headerlink" href="#LYDIAN"></a>
+    
+    
+
+                </section>
+                <section id="MIXOLYDIAN">
+                    <div class="attr variable">
+            <span class="name">MIXOLYDIAN</span>        =
+<span class="default_value">[Mode P1 M2 M3 P4 P5 M6 m7]</span>
+
+        
+    </div>
+    <a class="headerlink" href="#MIXOLYDIAN"></a>
+    
+    
+
+                </section>
+                <section id="AEOLIAN">
+                    <div class="attr variable">
+            <span class="name">AEOLIAN</span>        =
+<span class="default_value">[Mode P1 M2 m3 P4 P5 m6 m7]</span>
+
+        
+    </div>
+    <a class="headerlink" href="#AEOLIAN"></a>
+    
+    
+
+                </section>
+                <section id="LOCRIAN">
+                    <div class="attr variable">
+            <span class="name">LOCRIAN</span>        =
+<span class="default_value">[Mode P1 m2 m3 P4 d5 m6 m7]</span>
+
+        
+    </div>
+    <a class="headerlink" href="#LOCRIAN"></a>
     
     
 

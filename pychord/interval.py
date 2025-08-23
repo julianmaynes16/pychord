@@ -49,12 +49,12 @@ class Interval(Ratio):
 
             if offset_quantity > 7:
                 octave = (self.quantity - 1) // 7
-                offset_quantity = self.quantity % 7
+                offset_quantity = ((self.quantity - 1) % 7) + 1
 
             offset_name = f"{self.quality}{offset_quantity}"
 
             if offset_name not in INTERVAL_NAME_TO_VALUE:
-                raise ValueError(f"Invalid 12TET interval name: '{offset_name}'!")
+                raise ValueError(f"Invalid 12TET interval name: '{interval}'!")
 
             self.semitones = octave * SEMITONES_PER_OCTAVE + INTERVAL_NAME_TO_VALUE[offset_name]
 
@@ -108,11 +108,17 @@ class Interval(Ratio):
         """
         return -(self - Interval(SEMITONES_PER_OCTAVE))
 
-    def name(self) -> "str":
+    def name(self) -> str:
         """
-        Return name of interval like P5 or m7 or -M3
+        Return name of `Interval` like P5 or m7 or -M3
         """
         return f"{'-' if self.semitones < 0 else ''}{self.quality}{self.quantity}"
+
+    def decompound(self) -> "Interval":
+        """
+        Returns the same `Interval` without any octave offset
+        """
+        return Interval(self.semitones % SEMITONES_PER_OCTAVE)
 
 
 MINOR_SECOND = SEMITONE = Interval(1)
@@ -126,6 +132,7 @@ MAJOR_THIRD = Interval(4)
 PERFECT_FOURTH = Interval(5)
 
 AUGMENTED_FOURTH = Interval("A4")
+
 DIMINISHED_FIFTH = TRITONE = Interval("d5")
 
 PERFECT_FIFTH = Interval(7)

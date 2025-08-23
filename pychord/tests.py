@@ -5,6 +5,8 @@ from pychord.interval import *
 from pychord.note import *
 from pychord.ratio import *
 from pychord.tone import *
+from pychord.mode import *
+from pychord.scale import *
 
 
 class PyChordUnitTests(unittest.TestCase):
@@ -107,6 +109,36 @@ class PyChordUnitTests(unittest.TestCase):
 
         self.assertEqual((-Ratio(1.5)), Ratio(1 / 1.5))
         self.assertEqual(Ratio(1.25).compliment(), Ratio(1.6))
+
+    def test_modes_scales(self):
+        self.assertEqual(
+            IONIAN.to_scale(Note("C")),
+            Scale([Note("C"), Note("D"), Note("E"), Note("F"), Note("G"), Note("A"), Note("B")]),
+        )
+        self.assertEqual(
+            AEOLIAN.to_scale(Note("C")),
+            Scale([Note("C"), Note("D"), Note("Eb"), Note("F"), Note("G"), Note("Ab"), Note("Bb")]),
+        )
+        self.assertEqual(
+            IONIAN << 1,
+            Mode(
+                [
+                    Interval("P1"),
+                    Interval("M2"),
+                    Interval("m3"),
+                    Interval("P4"),
+                    Interval("P5"),
+                    Interval("M6"),
+                    Interval("m7"),
+                ]
+            ),
+        )
+
+        self.assertEqual(IONIAN, IONIAN)
+        self.assertEqual(IONIAN, PHRYGIAN >> 2)
+        self.assertNotEqual(IONIAN, DORIAN)
+
+        self.assertEqual(AEOLIAN.to_scale(Note("A3")), IONIAN.to_scale(Note("C")) >> 2)
 
 
 if __name__ == "__main__":

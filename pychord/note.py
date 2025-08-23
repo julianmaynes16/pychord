@@ -98,3 +98,25 @@ class Note(Tone):
             return Note(self.semitone + interval.semitones)
         else:
             return Tone(self.frequency) + interval
+
+    def following(self, note: "Note") -> "Note":
+        """
+        Return the higher octave of this `Note` following `note`
+        """
+
+        i = (self - note).decompound()
+
+        i = Interval("P8") if i.semitones == 0 else i
+
+        return note + i
+
+    def preceding(self, note: "Note") -> "Note":
+        """
+        Return the lower octave of this `Note` preceding `note`
+        """
+
+        i = -(note - self).decompound()
+
+        i = -Interval("P8") if i.semitones == 0 else i
+
+        return note + i
