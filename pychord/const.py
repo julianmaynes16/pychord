@@ -68,7 +68,7 @@ INTERVAL_SCALE_DEGREE_TO_QUALITY = {
     4: {5: "P", 6: "A"},
     5: {6: "d", 7: "P"},
     6: {8: "m", 9: "M"},
-    7: {10: "m", 11: "M"}
+    7: {10: "m", 11: "M"},
 }
 
 INTERVAL_VALUE_TO_COMPONENTS = {
@@ -98,23 +98,15 @@ CHORD_NAME_RE: re.Pattern = re.compile(
     r"^([CDEFGAB])(#{1,2}|b{1,2})?(maj|m|aug|dim)?([0-9]+)?((?:(?:#{1,2}|b{1,2})(?:[0-9]+))*)(sus2|sus4)?((?:(?:add|omit)(?:[0-9]+))*)(?:(?:\/)((?:[CDEFGAB])(?:#{1,2}|b{1,2})?))?$"
 )
 
-ALTERATION_RE : re.Pattern = re.compile(
-    r"(?:#{1,2}|b{1,2})[0-9]+"
-)
+ALTERATION_RE: re.Pattern = re.compile(r"(?:#{1,2}|b{1,2})[0-9]+")
 
 
-ALTERATION_ACCIDENTAL_EXTENSION_RE : re.Pattern = re.compile(
-    r"(#{1,2}|b{1,2})([0-9]+)"
-)
+ALTERATION_ACCIDENTAL_EXTENSION_RE: re.Pattern = re.compile(r"(#{1,2}|b{1,2})([0-9]+)")
 
 ADD_OMIT_RE = r"((?:add|omit)[0-9]+)"
 
-ADD_OMIT_LIST_RE : re.Pattern = re.compile(
-    fr"{ADD_OMIT_RE}*"
-)
+ADD_OMIT_LIST_RE: re.Pattern = re.compile(rf"{ADD_OMIT_RE}*")
 
-BASS_NOTE_RE : re.Pattern = re.compile(
-    r"(?:(?:\/)((?:[CDEFGAB])(?:#{1,2}|b{1,2})?))?"
-)
+BASS_NOTE_RE: re.Pattern = re.compile(r"(?:(?:\/)((?:[CDEFGAB])(?:#{1,2}|b{1,2})?))?")
 C0_FREQUENCY: int = 16.351597831287375  # A = 440
 "The frequency for C0 in A4=440Hz"

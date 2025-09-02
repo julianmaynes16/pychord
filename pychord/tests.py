@@ -9,6 +9,7 @@ from pychord.mode import *
 from pychord.scale import *
 from pychord.chord import *
 
+
 class PyChordUnitTests(unittest.TestCase):
     def test_note_name_parsing(self):
         self.assertEqual(Note("A").octave, NOTE_DEFAULT_OCTAVE)
@@ -134,18 +135,20 @@ class PyChordUnitTests(unittest.TestCase):
             ),
         )
 
-        self.assertEqual(MIXOLYDIAN, 
-                         Mode(
-                             [
-                                 Interval("P1"),
-                                 Interval("M2"),
-                                 Interval("M3"),
-                                 Interval("P4"),
-                                 Interval("P5"),
-                                 Interval("M6"),
-                                 Interval("m7"),
-                             ]
-                         ))
+        self.assertEqual(
+            MIXOLYDIAN,
+            Mode(
+                [
+                    Interval("P1"),
+                    Interval("M2"),
+                    Interval("M3"),
+                    Interval("P4"),
+                    Interval("P5"),
+                    Interval("M6"),
+                    Interval("m7"),
+                ]
+            ),
+        )
         self.assertEqual(IONIAN, IONIAN)
         self.assertEqual(IONIAN, PHRYGIAN >> 2)
         self.assertNotEqual(IONIAN, DORIAN)
@@ -157,13 +160,19 @@ class PyChordUnitTests(unittest.TestCase):
         self.assertEqual(Chord("C5").notes, [Note("C"), Note("G")])
         self.assertEqual(Chord("B7").notes, [Note("B"), Note("D#5"), Note("F#5"), Note("A5")])
         self.assertEqual(Chord("Cm11").notes, [Note("C"), Note("Eb"), Note("G"), Note("Bb"), Note("D5"), Note("F5")])
-        self.assertEqual(Chord("Cmaj9add2add4").notes, [Note("C"), Note("D"), Note("E"), Note("F"), Note("G"), Note("B"), Note("D5")])
-        self.assertEqual(Chord("Cmaj9add2add4/D").notes, [Note("D3"), Note("C"), Note("D"), Note("E"), Note("F"), Note("G"), Note("B"), Note("D5")])
-        
+        self.assertEqual(
+            Chord("Cmaj9add2add4").notes, [Note("C"), Note("D"), Note("E"), Note("F"), Note("G"), Note("B"), Note("D5")]
+        )
+        self.assertEqual(
+            Chord("Cmaj9add2add4/D").notes,
+            [Note("D3"), Note("C"), Note("D"), Note("E"), Note("F"), Note("G"), Note("B"), Note("D5")],
+        )
+
     def test_alphabet_rule(self):
         self.assertEqual(Chord("Cm").notes[1], Note("Eb"))
         self.assertEqual(Chord("D#7").notes, [Note("D#"), Note("G"), Note("A#"), Note("C#5")])
         self.assertEqual(Chord("Gb9").notes, [Note("Gb"), Note("Bb"), Note("Db5"), Note("E5"), Note("Ab5")])
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)

@@ -1,6 +1,7 @@
 from pychord.note import Note
 from pychord.interval import OCTAVE
 
+
 class Scale:
     """
     A musical `Scale` consisting of a list of ordered `Note`s

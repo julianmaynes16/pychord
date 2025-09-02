@@ -45,7 +45,7 @@ class Mode:
         if not isinstance(other, int):
             return NotImplemented
         return self.shifted(-other)
-    
+
     def __getitem__(self, key: int) -> "Interval":
         if not isinstance(key, int):
             return NotImplemented
@@ -67,21 +67,19 @@ class Mode:
         shifted_intervals = []
 
         for i in range(len(self.intervals)):
-            semitones = ((
-                self.intervals[(i + steps) % len(self.intervals)] - self.intervals[steps]).decompound()
+            semitones = (
+                (self.intervals[(i + steps) % len(self.intervals)] - self.intervals[steps]).decompound()
             ).semitones
 
             scale_degree = i + 1
-            shifted_intervals.append(
-                Interval(semitones, scale_degree)
-            )
+            shifted_intervals.append(Interval(semitones, scale_degree))
 
         return Mode(shifted_intervals)
 
     def to_scale(self, tonic: Note) -> "Scale":
         if not isinstance(tonic, Note):
             raise TypeError()
-        
+
         return Scale([tonic + interval for interval in self.intervals])
 
 

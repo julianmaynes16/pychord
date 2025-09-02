@@ -41,11 +41,14 @@ class Interval(Ratio):
             else:
                 scale_degree = ((scale_degree - 1) % 7) + 1
                 relative_abs_semitones = abs_semitones % SEMITONES_PER_OCTAVE
-                assert scale_degree in INTERVAL_SCALE_DEGREE_TO_QUALITY and relative_abs_semitones in INTERVAL_SCALE_DEGREE_TO_QUALITY[scale_degree], f"Invalid scale degree {scale_degree} for {relative_abs_semitones} semitones!"
+                assert (
+                    scale_degree in INTERVAL_SCALE_DEGREE_TO_QUALITY
+                    and relative_abs_semitones in INTERVAL_SCALE_DEGREE_TO_QUALITY[scale_degree]
+                ), f"Invalid scale degree {scale_degree} for {relative_abs_semitones} semitones!"
 
                 self.quality = INTERVAL_SCALE_DEGREE_TO_QUALITY[scale_degree][relative_abs_semitones]
                 self.quantity = scale_degree
-                
+
         elif isinstance(interval, str):
             m = INTERVAL_NAME_RE.match(interval)
 
@@ -155,4 +158,3 @@ MINOR_SEVENTH = Interval(10)
 MAJOR_SEVENTH = Interval(11)
 
 OCTAVE = Interval(12)
-
