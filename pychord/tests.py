@@ -155,8 +155,15 @@ class PyChordUnitTests(unittest.TestCase):
     def test_chords(self):
         self.assertEqual(Chord("C").notes, [Note("C"), Note("E"), Note("G")])
         self.assertEqual(Chord("C5").notes, [Note("C"), Note("G")])
-        self.assertEqual(Chord("B7").notes, [Note("B"), Note("D#"), Note("F#"), Note("A")])
-
+        self.assertEqual(Chord("B7").notes, [Note("B"), Note("D#5"), Note("F#5"), Note("A5")])
+        self.assertEqual(Chord("Cm11").notes, [Note("C"), Note("Eb"), Note("G"), Note("Bb"), Note("D5"), Note("F5")])
+        self.assertEqual(Chord("Cmaj9add2add4").notes, [Note("C"), Note("D"), Note("E"), Note("F"), Note("G"), Note("B"), Note("D5")])
+        self.assertEqual(Chord("Cmaj9add2add4/D").notes, [Note("D3"), Note("C"), Note("D"), Note("E"), Note("F"), Note("G"), Note("B"), Note("D5")])
+        
+    def test_alphabet_rule(self):
+        self.assertEqual(Chord("Cm").notes[1], Note("Eb"))
+        self.assertEqual(Chord("D#7").notes, [Note("D#"), Note("G"), Note("A#"), Note("C#5")])
+        self.assertEqual(Chord("Gb9").notes, [Note("Gb"), Note("Bb"), Note("Db5"), Note("E5"), Note("Ab5")])
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)

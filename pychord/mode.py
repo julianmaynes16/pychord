@@ -67,13 +67,21 @@ class Mode:
         shifted_intervals = []
 
         for i in range(len(self.intervals)):
+            semitones = ((
+                self.intervals[(i + steps) % len(self.intervals)] - self.intervals[steps]).decompound()
+            ).semitones
+
+            scale_degree = i + 1
             shifted_intervals.append(
-                (self.intervals[(i + steps) % len(self.intervals)] - self.intervals[steps]).decompound()
+                Interval(semitones, scale_degree)
             )
 
         return Mode(shifted_intervals)
 
     def to_scale(self, tonic: Note) -> "Scale":
+        if not isinstance(tonic, Note):
+            raise TypeError()
+        
         return Scale([tonic + interval for interval in self.intervals])
 
 
@@ -87,16 +95,3 @@ LYDIAN = IONIAN << 3
 MIXOLYDIAN = IONIAN << 4
 AEOLIAN = IONIAN << 5
 LOCRIAN = IONIAN << 6
-
-DIMINISHED_MODE = DORIAN
-DIMINISHED_MODE[4]  = DIMINISHED_MODE[4] - SEMITONE
-
-AUGMENTED_MODE = MIXOLYDIAN
-AUGMENTED_MODE[4] += SEMITONE
-
-QUALITIES_TO_MODE = {
-    "maj": IONIAN,
-    "m": DORIAN,
-    "dim": DIMINISHED_MODE, 
-    "aug": AUGMENTED_MODE
-}

@@ -19,24 +19,33 @@ class Interval(Ratio):
     quantity: int
     "Quantity of `Interval` as an integer number of major scale steps, for example M10 quality is 10"
 
-    def __init__(self, interval: Union[int, str]):
+    def __init__(self, interval: Union[int, str], scale_degree: int = None):
         """
         `interval` can be either an interval name like "M5" "m2" "d5" "A2" "P5" or an integer number of semitones
         """
 
         assert isinstance(interval, (int, str))
+        assert scale_degree is None or isinstance(scale_degree, int)
 
         if isinstance(interval, int):
             self.semitones = interval
 
             abs_semitones = abs(self.semitones)
 
-            self.quality = INTERVAL_VALUE_TO_COMPONENTS[abs_semitones % SEMITONES_PER_OCTAVE][0]
+            if scale_degree is None:
+                self.quality = INTERVAL_VALUE_TO_COMPONENTS[abs_semitones % SEMITONES_PER_OCTAVE][0]
 
-            self.quantity = INTERVAL_VALUE_TO_COMPONENTS[abs_semitones % SEMITONES_PER_OCTAVE][1] + (
-                7 * (abs_semitones // SEMITONES_PER_OCTAVE)
-            )
+                self.quantity = INTERVAL_VALUE_TO_COMPONENTS[abs_semitones % SEMITONES_PER_OCTAVE][1] + (
+                    7 * (abs_semitones // SEMITONES_PER_OCTAVE)
+                )
+            else:
+                scale_degree = ((scale_degree - 1) % 7) + 1
+                relative_abs_semitones = abs_semitones % SEMITONES_PER_OCTAVE
+                assert scale_degree in INTERVAL_SCALE_DEGREE_TO_QUALITY and relative_abs_semitones in INTERVAL_SCALE_DEGREE_TO_QUALITY[scale_degree], f"Invalid scale degree {scale_degree} for {relative_abs_semitones} semitones!"
 
+                self.quality = INTERVAL_SCALE_DEGREE_TO_QUALITY[scale_degree][relative_abs_semitones]
+                self.quantity = scale_degree
+                
         elif isinstance(interval, str):
             m = INTERVAL_NAME_RE.match(interval)
 
@@ -100,7 +109,7 @@ class Interval(Ratio):
         """
         Inversion of `Interval` e.g. up an octave becomes down an octave
         """
-        return Interval(-self.semitones)
+        return Interval(-self.semitones, self.quantity)
 
     def compliment(self) -> "Interval":
         """

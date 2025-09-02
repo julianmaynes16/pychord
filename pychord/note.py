@@ -95,7 +95,16 @@ class Note(Tone):
             raise TypeError()
 
         if isinstance(interval, Interval):
-            return Note(self.semitone + interval.semitones)
+            new_note = Note(self.semitone + interval.semitones)
+            new_note.letter = NOTE_NAME[(NOTE_NAME.index(self.letter) + (interval.quantity - 1) * (1 if interval.semitones > 1 else -1)) % len(NOTE_NAME)]
+
+            new_note.accidental = (new_note.semitone % SEMITONES_PER_OCTAVE - NOTE_NAME_TO_SEMITONE[new_note.letter]) % SEMITONES_PER_OCTAVE
+            new_note.accidental = new_note.accidental - SEMITONES_PER_OCTAVE if new_note.accidental > 2 else new_note.accidental
+
+            if abs(new_note.accidental) > 2:
+                return Note(self.semitone + interval.semitones)
+
+            return new_note
         else:
             return Tone(self.frequency) + interval
 

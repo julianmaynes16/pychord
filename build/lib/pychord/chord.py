@@ -29,6 +29,7 @@ class Chord:
         `root` is the root `Note` of the set of `Note`s; only required for passing in a set
         """ 
 
+
         if isinstance(chord, set):
             self.root = root
             self.notes = chord
@@ -53,8 +54,9 @@ class Chord:
 
             quantity = int(m.group(4)) if m.group(4) != None else 5
 
-            print(m.group(3))
-            if m.group(3) == None:
+            quality = m.group(3)
+
+            if quality == None:
                 if m.group(4) == None:
                     self.notes  = [self.root + IONIAN[i - 1] for i in range(1, quantity+2, 2)]
                 elif m.group(4) == "5":
@@ -62,8 +64,16 @@ class Chord:
                 else:
                     print( "Quantity: " + m.group(4))
                     self.notes = [self.root + MIXOLYDIAN[i - 1] for i in range(1, quantity+2, 2)]
-            else:
-                self.notes = [self.root + QUALITIES_TO_MODE[m.group(3)][i - 1] for i in range(1, quantity+2, 2)]
+            elif quality == "maj":
+                self.notes = [self.root + IONIAN[i - 1] for i in range(1, quantity+2, 2)]
+            elif quality == "m":
+                self.notes = [self.root + DORIAN[i - 1] for i in range(1, quantity+2, 2)]
+            elif quality == "dim":
+                self.notes = [self.root + DORIAN[i - 1] for i in range(1, quantity+2, 2)]
+                self.notes[2] = self.notes[2] - SEMITONE
+            elif quality == "aug":
+                self.notes = [self.root + MIXOLYDIAN[m.group(3)][i - 1] for i in range(1, quantity+2, 2)]
+                self.notes[2] = self.notes[2] + SEMITONE
 
 
 
@@ -122,9 +132,6 @@ class Chord:
                         self.notes[i].accidental = -1 if enharmonic == "b" else 1
 
             print(self.notes)
-
-
-
 
             # number 
             # majoe
